@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Dashboard</title>
+  <meta name="description" content="A clean, minimal to-do and focus dashboard that stores everything in your browser." />
+
+  <!-- Apply saved theme before first paint (default: light) -->
+  <script>
+    (function () {
+      var theme = "light";
+      try {
+        var saved = JSON.parse(localStorage.getItem("focusdash.theme"));
+        if (saved === "dark" || saved === "light") theme = saved;
+      } catch (e) { /* ignore */ }
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/stylee.css?v=2" />
+</head>
+<body>
+  <!-- ============ Top bar ============ -->
+  <header class="topbar">
+    <div class="greeting-block">
+      <h1 class="greeting-title">
+        <span id="greeting-text">Hello</span>
+        <span id="greeting-name">friend</span>
+      </h1>
+      <div class="clock" id="clock">--:--</div>
+      <div class="date" id="date">Loading…</div>
+
+      <div class="name-edit">
+        <input type="text" id="name-input" placeholder="Set your name…" maxlength="30" autocomplete="off" />
+        <button class="btn btn-sm btn-primary" id="save-name-btn" type="button">Save name</button>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" id="theme-toggle" type="button" title="Toggle light / dark">🌙 Dark</button>
+    </div>
+  </header>
+
+  <!-- ============ Dashboard ============ -->
+  <main class="dashboard">
+    <!-- ---- Focus Timer ---- -->
+    <section class="card timer-card" aria-label="Focus timer">
+      <h2 class="card-title">Focus Timer</h2>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="timer-status" id="timer-status">Ready to focus</div>
+      <div class="timer-controls">
+        <button class="btn btn-primary" id="timer-start" type="button">Start</button>
+        <button class="btn" id="timer-stop" type="button" disabled>Stop</button>
+        <button class="btn" id="timer-reset" type="button">Reset</button>
+      </div>
+      <div class="timer-settings">
+        <label for="timer-duration">Minutes</label>
+        <input type="number" id="timer-duration" min="1" max="120" value="25" />
+        <button class="btn btn-sm" id="timer-apply" type="button">Apply</button>
+      </div>
+    </section>
+
+    <!-- ---- To-Do List ---- -->
+    <section class="card todo-card" aria-label="To-do list">
+      <h2 class="card-title">To-Do List</h2>
+      <form class="todo-form" id="todo-form">
+        <input type="text" id="todo-input" placeholder="Add a new task…" maxlength="200" autocomplete="off" />
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+      <ul class="todo-list" id="todo-list"></ul>
+      <div class="todo-footer">
+        <span class="todo-count" id="todo-count">0 tasks</span>
+        <button class="btn btn-sm btn-ghost" id="todo-clear-done" type="button">Clear done</button>
+      </div>
+    </section>
+
+    <!-- ---- Quick Links ---- -->
+    <section class="card links-card" aria-label="Quick links">
+      <h2 class="card-title">Quick Links</h2>
+      <!-- novalidate: script.js adds https:// automatically if it's missing -->
+      <form class="link-form" id="link-form" novalidate>
+        <input type="text" id="link-name" placeholder="Name" maxlength="40" autocomplete="off" />
+        <input type="url" id="link-url" placeholder="https://example.com" />
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+      <div class="links-list" id="links-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">Focus Dashboard — your data stays in this browser only.</footer>
+
+  <script src="js/script.js?v=2"></script>
+</body>
+</html>
